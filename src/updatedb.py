@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 load_dotenv()
 
-def UpdateDb():
+def updateDb():
 
     uri = os.getenv("MongoDB_Connection_String")
 

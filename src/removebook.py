@@ -1,10 +1,13 @@
 from dotenv import load_dotenv
-import os
 from pymongo import MongoClient
+import os
 
 load_dotenv()
 
-def searchBook():
+def deleteBook(collection, query):
+    return collection.delete_many(query)
+
+def removeBook():
     uri = os.getenv("MongoDB_Connection_String")
 
     client = MongoClient(uri)
@@ -26,7 +29,9 @@ def searchBook():
         expression = -1
 
         while True:
-            user_input = input("\n 1.For id Search \n 2.For bookId Search \n 3.For title Search \n 4.For author Search \n 5.For genre Search \n 6.For alreadyReady Search \n")
+            user_input = input(
+                "\n 1.For id Search \n 2.For bookId Search \n 3.For title Search \n 4.For author Search \n 5.For genre Search \n 6.For alreadyReady Search \n"
+            )
             try:
                 expression = int(user_input)
                 if expression in valid_numbers:
@@ -57,8 +62,12 @@ def searchBook():
                 query = {"alreadyRead": value}
 
         results = list(collection.find(query, {"_id": 0}))
-        for doc in results:
-            print(doc)
+        if not results:
+            print("No matching books found.")
+            return
+
+        deleteBook(collection, query)
+        print("Book(s) deleted.")
 
     except Exception as e:
         print("Error: ", e)
