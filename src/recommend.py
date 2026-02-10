@@ -45,4 +45,3 @@ def recommendBook():
             return
         else:
             print(f"\n'{user_input}' is not a valid genre. Please choose from the list above.")
-recommendBook()

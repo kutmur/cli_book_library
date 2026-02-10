@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 from pymongo import MongoClient
+from updatedb import updateDb
 
 load_dotenv()
 
@@ -98,6 +99,7 @@ def editBook():
             print("\nBook updated successfully!")
             updated = collection.find_one({"_id": selected["_id"]}, {"_id": 0})
             print(updated)
+            updateDb()
         else:
             print("\nNo changes were made.")
 

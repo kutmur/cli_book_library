@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 from pymongo import MongoClient
+from updatedb import updateDb
 
 load_dotenv()
 
@@ -67,6 +68,7 @@ def addBook():
         if confirm == "y":
             collection.insert_one(book)
             print("Book added successfully!")
+            updateDb()
         else:
             print("Book was not added.")
 

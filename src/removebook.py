@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from pymongo import MongoClient
 import os
+from updatedb import updateDb
 
 load_dotenv()
 
@@ -68,6 +69,7 @@ def removeBook():
 
         deleteBook(collection, query)
         print("Book(s) deleted.")
+        updateDb()
 
     except Exception as e:
         print("Error: ", e)
